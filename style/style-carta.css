@@ -1,0 +1,47 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: sans-serif;
+}
+
+body {
+  background-image: url("/logos/fondo4.png");
+  background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 30% 40%;
+    width: 100%;
+    
+  }
+
+.main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  text-align: center;
+ 
+}
+
+.menu-carta {
+  width: 20%;
+  background-color: rgba(9, 1, 68, 0.159);
+}
+
+.menu-carta a {
+  text-decoration: none;
+  color: rgb(249, 249, 245);
+  font-size: 18px;
+  letter-spacing: 2px;
+  display: list-item;
+  padding: 20px;
+  border-top: 1px solid rgb(56, 54, 54);
+  border-bottom: 1px solid brown;
+}
+
+.menu-carta a:hover {
+background-color: rgb(51, 50, 50);
+transition: 0.3s;
+letter-spacing: 4px;
+text-transform: uppercase;
+} 
