@@ -1,2 +1,9 @@
 *.pdf
 .DS_Store
+node_modules/
+.next/
+.pnpm-store/
+out/
+dist/
+.env
+.env.local
