@@ -8,15 +8,10 @@ export default function HomePage() {
   return (
     <main>
       <section className="container-page py-7 md:py-10">
-        <div className="relative grid min-h-[calc(100vh-112px)] place-items-center overflow-hidden rounded-lg border border-lamona-orange/45 bg-[radial-gradient(circle_at_top_left,rgba(215,81,38,0.34),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(212,169,146,0.16),transparent_30%),linear-gradient(135deg,#2b140c_0%,#0b0a09_42%,#180c07_100%)] px-5 py-14 text-center shadow-glow md:px-10">
-          <Image
-            src="/logos/publicidad con logo.jpg"
-            alt="Productos Lamona Sushi"
-            fill
-            className="pointer-events-none object-cover opacity-[0.08]"
-            priority
-            sizes="100vw"
-          />
+        <div className="relative grid min-h-[calc(100vh-112px)] place-items-center overflow-hidden rounded-lg border border-lamona-orange/45 bg-[linear-gradient(135deg,#2b140c_0%,#0b0a09_44%,#180c07_100%)] px-5 py-14 text-center shadow-glow md:px-10">
+          <div className="absolute inset-x-0 top-0 h-1 bg-lamona-orange" />
+          <div className="absolute inset-y-0 left-0 w-1/3 bg-lamona-orange/10" />
+          <div className="absolute inset-y-0 right-0 w-1/4 bg-black/20" />
           <div className="relative z-10 mx-auto grid max-w-5xl justify-items-center">
             <Image
               src="/logos/logomenu.jpg"
@@ -26,15 +21,20 @@ export default function HomePage() {
               className="h-28 w-28 rounded-full border border-white/15 object-cover shadow-2xl md:h-32 md:w-32"
               priority
             />
-            <p className="mt-8 text-xs font-black uppercase tracking-[0.32em] text-lamona-salmon md:text-sm">
+            <p className="mt-8 text-xs font-black uppercase text-lamona-salmon md:text-sm">
               Fusion Nikkei
             </p>
-            <h1 className="mt-6 text-5xl font-black leading-none text-lamona-bone md:text-7xl lg:text-8xl">
+            <h1 className="mt-6 text-5xl font-black leading-[0.95] text-lamona-bone md:text-7xl lg:text-8xl">
               La Mona Sushi
             </h1>
             <p className="mt-7 max-w-3xl text-lg font-bold leading-8 text-lamona-bone/86 md:text-2xl md:leading-10">
-              Rolls, gohans, ceviches y promos listas para pedir online con carrito y pago Webpay Plus.
+              Sushi fusion nikkei, promos para compartir y carta online lista para pedir con retiro o delivery.
             </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3 text-sm font-bold text-lamona-bone/78">
+              <span className="rounded-full border border-white/12 bg-white/5 px-4 py-2">Av. Las Parcelas 8265</span>
+              <span className="rounded-full border border-white/12 bg-white/5 px-4 py-2">Retiro y delivery</span>
+              <span className="rounded-full border border-white/12 bg-white/5 px-4 py-2">Webpay Plus</span>
+            </div>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Link
                 href="/carta"
