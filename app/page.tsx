@@ -7,35 +7,45 @@ import { formatPrice } from '@/lib/format';
 export default function HomePage() {
   return (
     <main>
-      <section className="container-page py-7 md:py-10">
-        <div className="relative grid min-h-[calc(100vh-112px)] place-items-center overflow-hidden rounded-lg border border-lamona-orange/45 bg-[linear-gradient(135deg,#2b140c_0%,#0b0a09_44%,#180c07_100%)] px-5 py-14 text-center shadow-glow md:px-10">
-          <div className="absolute inset-x-0 top-0 h-1 bg-lamona-orange" />
-          <div className="absolute inset-y-0 left-0 w-1/3 bg-lamona-orange/10" />
-          <div className="absolute inset-y-0 right-0 w-1/4 bg-black/20" />
-          <div className="relative z-10 mx-auto grid max-w-5xl justify-items-center">
+      <section className="relative min-h-[calc(100svh-112px)] overflow-hidden border-b border-white/10 bg-black">
+        <Image
+          src="/banners/hero-sushi-ai.png"
+          alt="Sushi rolls frescos de La Mona Sushi"
+          fill
+          className="object-cover object-[68%_center]"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#000_0%,rgba(0,0,0,0.94)_25%,rgba(0,0,0,0.62)_48%,rgba(0,0,0,0.18)_73%,rgba(0,0,0,0.48)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_28%,rgba(215,81,38,0.28),transparent_28rem),linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.72))]" />
+        <div className="container-page relative z-10 grid min-h-[calc(100svh-112px)] items-center py-10 md:py-14">
+          <div className="max-w-2xl">
             <Image
               src="/logos/logomenu.jpg"
               alt="La Mona Sushi"
               width={132}
               height={132}
-              className="h-28 w-28 rounded-full border border-white/15 object-cover shadow-2xl md:h-32 md:w-32"
+              className="h-20 w-20 rounded-full border border-white/15 object-cover shadow-2xl md:h-24 md:w-24"
               priority
             />
-            <p className="mt-8 text-xs font-black uppercase text-lamona-salmon md:text-sm">
+            <p className="mt-6 text-xs font-black uppercase tracking-[0.32em] text-lamona-salmon md:text-sm">
               Fusion Nikkei
             </p>
-            <h1 className="mt-6 text-5xl font-black leading-[0.95] text-lamona-bone md:text-7xl lg:text-8xl">
+            <h1 className="mt-4 text-5xl font-black leading-[0.92] text-lamona-bone drop-shadow-2xl md:text-6xl lg:text-7xl">
               La Mona Sushi
             </h1>
-            <p className="mt-7 max-w-3xl text-lg font-bold leading-8 text-lamona-bone/86 md:text-2xl md:leading-10">
-              Sushi fusion nikkei, promos para compartir y carta online lista para pedir con retiro o delivery.
+            <p className="mt-4 text-3xl font-black leading-none text-lamona-orange md:text-5xl">
+              Frescura sagrada
             </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3 text-sm font-bold text-lamona-bone/78">
+            <p className="mt-6 max-w-xl text-base font-bold leading-7 text-lamona-bone/86 md:text-xl md:leading-8">
+              Rolls, gohans y promos nikkei con retiro o delivery. Carta online lista para pedir en minutos.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-lamona-bone/78">
               <span className="rounded-full border border-white/12 bg-white/5 px-4 py-2">Av. Las Parcelas 8265</span>
               <span className="rounded-full border border-white/12 bg-white/5 px-4 py-2">Retiro y delivery</span>
               <span className="rounded-full border border-white/12 bg-white/5 px-4 py-2">Webpay Plus</span>
             </div>
-            <div className="mt-9 flex flex-wrap justify-center gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="/carta"
                 className="inline-flex items-center gap-2 rounded-full bg-lamona-orange px-6 py-4 text-sm font-black text-white shadow-glow transition hover:bg-lamona-orangeDark"
