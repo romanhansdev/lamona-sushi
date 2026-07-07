@@ -21,7 +21,7 @@ export function PromoCard({ promo }: { promo: Promo }) {
           className="object-cover object-center transition duration-300 group-hover:scale-105"
           sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
         />
-        <span className="absolute left-3 top-3 rounded-full bg-black/75 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-lamona-bone">
+        <span className="absolute left-3 top-3 rounded-full bg-black/75 px-3 py-1 text-xs font-black uppercase text-lamona-bone">
           {detalle}
         </span>
       </div>

@@ -13,7 +13,7 @@ export function PromosBanner() {
           priority
         />
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.28em] text-lamona-salmon">
+          <p className="text-xs font-black uppercase text-lamona-salmon">
             Fusion Nikkei
           </p>
           <h2 className="mt-2 text-4xl font-black leading-none text-lamona-bone md:text-6xl">

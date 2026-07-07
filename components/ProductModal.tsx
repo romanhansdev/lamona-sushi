@@ -48,7 +48,7 @@ export function ProductModal({ producto, onClose, onAdd }: ProductModalProps) {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-lamona-muted">Incluye</h3>
+            <h3 className="text-sm font-bold uppercase text-lamona-muted">Incluye</h3>
             <ul className="mt-3 grid gap-2 text-sm text-lamona-bone/78">
               {producto.incluye.map((item) => (
                 <li key={item} className="rounded bg-white/5 px-3 py-2">{item}</li>
