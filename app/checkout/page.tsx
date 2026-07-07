@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { MessageCircle } from 'lucide-react';
+import { CreditCard, MessageCircle } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import type { DatosEntrega } from '@/types/menu';
 import { buildWhatsAppMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
@@ -23,6 +23,8 @@ export default function CheckoutPage() {
   const extras = useCart((state) => state.extras);
   const total = useCart((state) => state.total());
   const [datos, setDatos] = useState<DatosEntrega>(initialData);
+  const [isPaying, setIsPaying] = useState(false);
+  const [paymentError, setPaymentError] = useState('');
 
   const message = useMemo(
     () => buildWhatsAppMessage(items, total, extras, datos),
@@ -32,6 +34,41 @@ export default function CheckoutPage() {
   const whatsappUrl = buildWhatsAppUrl(message);
   const canSubmit = items.length > 0 && datos.nombre.trim() && datos.telefono.trim()
     && (datos.tipoEntrega === 'Retiro en local' || datos.direccion.trim());
+
+  async function pagarConWebpay() {
+    if (!canSubmit || isPaying) {
+      return;
+    }
+
+    setIsPaying(true);
+    setPaymentError('');
+
+    try {
+      window.localStorage.setItem('lamona-pedido-pendiente', JSON.stringify({
+        items,
+        extras,
+        datos,
+        total,
+        message
+      }));
+
+      const response = await fetch('/api/pago/crear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: total })
+      });
+      const payload = await response.json();
+
+      if (!response.ok || !payload.redirectUrl) {
+        throw new Error(payload.error || 'No se pudo iniciar el pago.');
+      }
+
+      window.location.href = payload.redirectUrl;
+    } catch (error) {
+      setPaymentError(error instanceof Error ? error.message : 'No se pudo iniciar el pago.');
+      setIsPaying(false);
+    }
+  }
 
   if (!hasMounted) {
     return (
@@ -47,7 +84,7 @@ export default function CheckoutPage() {
     <main className="container-page py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-black">Confirmar pedido</h1>
-        <p className="mt-2 text-lamona-muted">Primera version: genera un mensaje automatico de WhatsApp con el resumen.</p>
+        <p className="mt-2 text-lamona-muted">Paga en linea con Webpay Plus y enviaremos el resumen del pedido al local.</p>
       </div>
 
       {items.length === 0 ? (
@@ -139,18 +176,34 @@ export default function CheckoutPage() {
               <span>Total</span>
               <span className="text-lamona-orange">{formatPrice(total)}</span>
             </div>
+            <button
+              type="button"
+              onClick={pagarConWebpay}
+              disabled={!canSubmit || isPaying}
+              className={`mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-4 font-black text-white ${
+                canSubmit && !isPaying ? 'bg-lamona-orange shadow-glow' : 'bg-white/10 text-lamona-muted'
+              }`}
+            >
+              <CreditCard size={20} />
+              {isPaying ? 'Conectando con Webpay...' : 'Pagar con Webpay Plus'}
+            </button>
+            {paymentError && (
+              <p className="mt-3 rounded-md border border-red-400/30 bg-red-500/10 px-3 py-2 text-xs leading-5 text-red-100">
+                {paymentError}
+              </p>
+            )}
             <a
               href={canSubmit ? whatsappUrl : undefined}
               target="_blank"
-              className={`mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-4 font-black text-white ${
-                canSubmit ? 'bg-lamona-orange shadow-glow' : 'pointer-events-none bg-white/10 text-lamona-muted'
+              className={`mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border px-5 py-3 font-bold ${
+                canSubmit ? 'border-white/10 text-lamona-bone hover:bg-white/8' : 'pointer-events-none border-white/10 text-lamona-muted'
               }`}
             >
               <MessageCircle size={20} />
               Enviar por WhatsApp
             </a>
             <p className="mt-3 text-xs leading-5 text-lamona-muted">
-              Cambia el numero real del local en `lib/whatsapp.ts` antes de publicar.
+              Webpay esta configurado en ambiente de integracion hasta cargar las credenciales reales de Transbank.
             </p>
           </aside>
         </section>

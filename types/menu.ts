@@ -9,6 +9,7 @@ export interface ProductoMenu {
   incluye: string[];
   destacado?: boolean;
   disponible: boolean;
+  notas?: string;
 }
 
 export interface CategoriaMenu {
