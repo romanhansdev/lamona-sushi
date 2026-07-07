@@ -3,8 +3,8 @@ import './globals.css';
 import { Header } from '@/components/Header';
 
 export const metadata: Metadata = {
-  title: 'Lamona Sushi | Pedidos online',
-  description: 'Carta online de Lamona Sushi con carrito y pedidos por WhatsApp.'
+  title: 'La Mona Sushi | Pedidos online',
+  description: 'Carta online de La Mona Sushi con carrito y pedidos por WhatsApp.'
 };
 
 export default function RootLayout({

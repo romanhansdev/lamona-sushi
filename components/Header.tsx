@@ -20,10 +20,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-lamona-black/92 backdrop-blur">
       <div className="container-page flex h-20 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3" aria-label="Lamona Sushi inicio">
+        <Link href="/" className="flex items-center gap-3" aria-label="La Mona Sushi inicio">
           <Image
             src="/logos/logomenu.jpg"
-            alt="Lamona Sushi"
+            alt="La Mona Sushi"
             width={84}
             height={56}
             className="h-14 w-auto object-contain"

@@ -66,7 +66,7 @@ export function CartaClient({ initialCategory }: CartaClientProps) {
         <div>
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-4xl font-black">Carta Lamona</h1>
+              <h1 className="text-4xl font-black">Carta La Mona</h1>
               <p className="mt-2 text-lamona-muted">
                 Carta real completa con promos, productos individuales y precios actualizados.
               </p>

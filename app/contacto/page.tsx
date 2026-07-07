@@ -6,7 +6,7 @@ export default function ContactoPage() {
       <section className="max-w-3xl">
         <h1 className="text-4xl font-black">Contacto</h1>
         <p className="mt-3 text-lg leading-8 text-lamona-muted">
-          Seccion lista para completar con los canales oficiales de Lamona Sushi.
+          Seccion lista para completar con los canales oficiales de La Mona Sushi.
         </p>
       </section>
       <div className="mt-8 grid gap-4 md:grid-cols-3">

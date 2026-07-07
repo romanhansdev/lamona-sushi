@@ -14,7 +14,7 @@ export function buildWhatsAppMessage(
   ));
 
   const lineas = [
-    'Hola! Quiero hacer este pedido en Lamona Sushi:',
+    'Hola! Quiero hacer este pedido en La Mona Sushi:',
     '',
     ...productos,
     '',

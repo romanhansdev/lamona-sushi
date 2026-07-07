@@ -30,7 +30,7 @@ export default function HomePage() {
               Fusion Nikkei
             </p>
             <h1 className="mt-6 text-5xl font-black leading-none text-lamona-bone md:text-7xl lg:text-8xl">
-              Lamona Sushi
+              La Mona Sushi
             </h1>
             <p className="mt-7 max-w-3xl text-lg font-bold leading-8 text-lamona-bone/86 md:text-2xl md:leading-10">
               Rolls, gohans, ceviches y promos listas para pedir online con carrito y pago Webpay Plus.

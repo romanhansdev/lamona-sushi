@@ -7,7 +7,7 @@ export default function QuienesSomosPage() {
         </p>
         <h1 className="text-4xl font-black">Quienes somos</h1>
         <p className="mt-5 text-lg leading-8 text-lamona-muted">
-          Esta pagina queda lista para completar con la historia real de Lamona Sushi,
+          Esta pagina queda lista para completar con la historia real de La Mona Sushi,
           su propuesta, equipo y tono de marca. Por ahora mantiene el diseño base del
           nuevo sitio para no romper la experiencia.
         </p>

@@ -33,7 +33,7 @@ export default function UbicacionPage() {
         </article>
         <div className="min-h-80 overflow-hidden rounded-lg border border-white/10 bg-lamona-slate">
           <iframe
-            title="Mapa Lamona Sushi"
+            title="Mapa La Mona Sushi"
             src={mapsEmbedUrl}
             className="h-full min-h-80 w-full border-0"
             loading="lazy"

@@ -69,10 +69,10 @@ function clp(value: number) {
 
 export function CartaPDF() {
   return (
-    <Document title="Carta Lamona Sushi">
+    <Document title="Carta La Mona Sushi">
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          <Text style={styles.brand}>Lamona Sushi</Text>
+          <Text style={styles.brand}>La Mona Sushi</Text>
           <Text style={styles.subtitle}>Carta completa generada desde los datos de la web</Text>
         </View>
 

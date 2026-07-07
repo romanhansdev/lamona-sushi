@@ -16,7 +16,7 @@ export async function GET() {
   return new Response(buffer, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment; filename="carta-lamona-sushi.pdf"'
+      'Content-Disposition': 'attachment; filename="carta-la-mona-sushi.pdf"'
     }
   });
 }
