@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { CreditCard, MessageCircle } from 'lucide-react';
 import { useCart } from '@/store/cart';
-import type { DatosEntrega } from '@/types/menu';
+import type { DatosEntrega, ItemCarrito } from '@/types/menu';
 import { buildWhatsAppMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
+import { getItemTotal, getUnitExtraPrice } from '@/lib/cartPricing';
 import { formatPrice } from '@/lib/format';
 import { useHasMounted } from '@/lib/useHasMounted';
 
@@ -16,6 +17,19 @@ const initialData: DatosEntrega = {
   direccion: '',
   comentarios: ''
 };
+
+function getCartItemId(item: ItemCarrito) {
+  return item.id ?? item.producto.id;
+}
+
+function getSelectionLabels(item: ItemCarrito) {
+  return (item.producto.opciones ?? [])
+    .map((grupo) => {
+      const selectedOption = grupo.opciones.find((option) => option.id === item.selecciones?.[grupo.id]);
+      return selectedOption ? `${grupo.nombre}: ${selectedOption.nombre}` : '';
+    })
+    .filter(Boolean);
+}
 
 export default function CheckoutPage() {
   const hasMounted = useHasMounted();
@@ -165,9 +179,21 @@ export default function CheckoutPage() {
             <h2 className="text-xl font-black">Resumen</h2>
             <div className="mt-4 space-y-3">
               {items.map((item) => (
-                <div key={item.producto.id} className="flex justify-between gap-4 text-sm">
-                  <span className="text-lamona-bone/78">{item.cantidad}x {item.producto.nombre}</span>
-                  <span className="font-bold">{formatPrice(item.producto.precio * item.cantidad)}</span>
+                <div key={getCartItemId(item)} className="flex justify-between gap-4 text-sm">
+                  <span className="text-lamona-bone/78">
+                    {item.cantidad}x {item.producto.nombre}
+                    {getSelectionLabels(item).map((label) => (
+                      <span key={label} className="mt-1 block text-xs text-lamona-muted">
+                        {label}
+                      </span>
+                    ))}
+                    {getUnitExtraPrice(item.producto, item.selecciones) > 0 && (
+                      <span className="mt-1 block text-xs font-semibold text-lamona-orange">
+                        Extra por cambios: {formatPrice(getUnitExtraPrice(item.producto, item.selecciones))} c/u
+                      </span>
+                    )}
+                  </span>
+                  <span className="font-bold">{formatPrice(getItemTotal(item))}</span>
                 </div>
               ))}
             </div>

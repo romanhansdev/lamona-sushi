@@ -1,7 +1,17 @@
 import type { DatosEntrega, ItemCarrito, PedidoExtras } from '@/types/menu';
+import { getItemTotal, getUnitExtraPrice } from './cartPricing';
 import { formatPrice } from './format';
 
 const WHATSAPP_NUMBER = '56900000000';
+
+function getSelectionLabels(item: ItemCarrito) {
+  return (item.producto.opciones ?? [])
+    .map((grupo) => {
+      const selectedOption = grupo.opciones.find((option) => option.id === item.selecciones?.[grupo.id]);
+      return selectedOption ? `${grupo.nombre}: ${selectedOption.nombre}` : '';
+    })
+    .filter(Boolean);
+}
 
 export function buildWhatsAppMessage(
   items: ItemCarrito[],
@@ -10,7 +20,13 @@ export function buildWhatsAppMessage(
   datos: DatosEntrega
 ) {
   const productos = items.map((item) => (
-    `- ${item.cantidad}x ${item.producto.nombre}: ${formatPrice(item.producto.precio * item.cantidad)}`
+    [
+      `- ${item.cantidad}x ${item.producto.nombre}: ${formatPrice(getItemTotal(item))}`,
+      ...getSelectionLabels(item).map((label) => `  - ${label}`),
+      getUnitExtraPrice(item.producto, item.selecciones) > 0
+        ? `  - Extra por cambios: ${formatPrice(getUnitExtraPrice(item.producto, item.selecciones))} c/u`
+        : ''
+    ].filter(Boolean).join('\n')
   ));
 
   const lineas = [

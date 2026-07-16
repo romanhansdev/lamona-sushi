@@ -32,6 +32,11 @@ export function ProductCard({ producto, onOpen, onQuickAdd }: ProductCardProps) 
               Promo
             </span>
           )}
+          {producto.opciones?.length ? (
+            <span className="absolute right-3 top-3 rounded-full bg-lamona-orange px-3 py-1 text-xs font-black text-white shadow-glow">
+              Elegir
+            </span>
+          ) : null}
         </div>
       </button>
       <div className="grid min-h-36 gap-4 p-4">

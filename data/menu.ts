@@ -2,6 +2,21 @@ import type { CategoriaMenu, ProductoMenu } from '@/types/menu';
 
 const PRODUCT_IMAGE = '/imgPrueva/imagenDePrueba4.jpeg';
 
+const orientalFillingOptions = [
+  {
+    id: 'relleno',
+    nombre: 'Elige tu relleno',
+    requerido: true,
+    opciones: [
+      { id: 'salmon', nombre: 'Salmon' },
+      { id: 'camaron', nombre: 'Camaron' },
+      { id: 'pollo-furai', nombre: 'Pollo furai' },
+      { id: 'kanikama', nombre: 'Kanikama' },
+      { id: 'vegetariano', nombre: 'Vegetariano' }
+    ]
+  }
+];
+
 export const categorias: CategoriaMenu[] = [
   { id: 'picar-y-compartir', nombre: 'Picar y compartir', descripcion: 'Entradas calientes y bocados para abrir el pedido.' },
   { id: 'sashimis', nombre: 'Sashimis', descripcion: 'Cortes frescos de salmon, atun o pulpo.' },
@@ -16,6 +31,7 @@ export const categorias: CategoriaMenu[] = [
   { id: 'hot-rolls', nombre: 'Hot Rolls', descripcion: 'Rolls calientes envueltos en panko.' },
   { id: 'rolls-premium', nombre: 'Rolls Premium', descripcion: 'Preparaciones de la casa con salsas especiales.' },
   { id: 'rolls-sin-arroz-armable', nombre: 'Rolls sin Arroz (armable)', descripcion: 'Elige proteinas e ingredientes para armarlo a tu gusto.' },
+  { id: 'oriental-sin-arroz', nombre: 'Oriental sin arroz', descripcion: 'Rolls estilo oriental con relleno a eleccion.' },
   { id: 'bebidas', nombre: 'Bebidas', descripcion: 'Bebidas y jugos para acompanar.' },
   { id: 'salsas', nombre: 'Salsas', descripcion: 'Salsas adicionales para completar el pedido.' }
 ];
@@ -29,6 +45,7 @@ type RawProducto = {
   imagen?: string;
   notas?: string;
   destacado?: boolean;
+  opciones?: ProductoMenu['opciones'];
 };
 
 const rawProductos: RawProducto[] = [
@@ -91,6 +108,19 @@ const rawProductos: RawProducto[] = [
   { id: 'criollo-roll', nombre: 'Criollo Roll', categoria: 'rolls-premium', descripcion: 'Camaron, queso crema, palta, envuelto en arroz, banado en salsa huancaina y coronado con salsa criolla', precio: 6000 },
   { id: 'mixtura-roll', nombre: 'Mixtura Roll', categoria: 'rolls-premium', descripcion: 'Camaron apanado, queso crema, palta, coronado con lomo salteado y papas hilo', precio: 6500, destacado: true },
   { id: 'rolls-sin-arroz-base', nombre: 'Roll sin arroz (armable)', categoria: 'rolls-sin-arroz-armable', descripcion: 'Envuelto en palta, queso crema, salmon y panko - elige 2 proteinas + 3 ingredientes', precio: 6500 },
+  { id: 'niu-malibu-keto-oriental-sin-arroz', nombre: 'Malibu Keto Oriental (Sin arroz)', categoria: 'oriental-sin-arroz', descripcion: 'Camaron, salmon, atun, pepino, envuelto en palta, sin arroz', precio: 7700, imagen: '/productos/niu-oriental/01-malibu-keto-oriental-sin-arroz.webp', opciones: orientalFillingOptions, destacado: true },
+  { id: 'niu-veggie-keto-oriental', nombre: 'Veggie Keto Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Palmito, champinon, palta y pepino sin arroz, envuelto en palta.', precio: 6600, imagen: '/productos/niu-oriental/02-veggie-keto-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-ebi-keto-oriental', nombre: 'Ebi Keto Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Camaron, salmon, queso crema y cebollin sin arroz, envuelto en palta, salsa acevichada, shichimi y ciboulette.', precio: 8100, imagen: '/productos/niu-oriental/03-ebi-keto-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-almond-oriental', nombre: 'Almond Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Pollo teriyaki, queso crema y cebollin sin arroz, envuelto en palta y almendras picadas.', precio: 6600, imagen: '/productos/niu-oriental/04-almond-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-coreano-oriental', nombre: 'Coreano Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Pollo furai, queso crema y cebollin sin arroz, envuelto en nori tempurizado, salsa coreana gratinada y chips de wantan.', precio: 6000, imagen: '/productos/niu-oriental/05-coreano-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-ebi-oriental', nombre: 'Ebi Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Camaron furai, queso crema, palta y cebollin, envuelto en pollo apanado y salsa teriyaki.', precio: 6700, imagen: '/productos/niu-oriental/06-ebi-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-avocado-furai-oriental', nombre: 'Avocado Furai Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Camaron furai, queso crema y cebollin, envuelto en palta tempura y cubierto con salsa acevichada, sin arroz.', precio: 7500, imagen: '/productos/niu-oriental/07-avocado-furai-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-sabi-oriental', nombre: 'Sabi Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Camaron furai, salmon, palta, queso crema y ciboulette, envuelto en palta, sin arroz.', precio: 8100, imagen: '/productos/niu-oriental/08-sabi-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-tempura-spicy-oriental', nombre: 'Tempura Spicy Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Camaron furai, queso crema, salsa spicy y cebollin, envuelto en nori tempurizado y cubierto con salsa acevichada ahumada y shichimi, sin arroz.', precio: 7200, imagen: '/productos/niu-oriental/09-tempura-spicy-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-niu-furai-oriental', nombre: 'Niu Furai Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Pollo furai, queso crema y cebollin, envuelto en pollo apanado y cubierto con salsa acevichada ahumada, sin arroz.', precio: 6700, imagen: '/productos/niu-oriental/10-niu-furai-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-poseidon-oriental', nombre: 'Poseidon Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Camaron furai, salmon y atun, envuelto en palta y cubierto en salsa acevichada con masago y shichimi, sin arroz.', precio: 8200, imagen: '/productos/niu-oriental/11-poseidon-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-tori-oriental', nombre: 'Tori Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Pollo furai, queso crema, cebollin y champinon, cubierto en pollo apanado en panko, sesamo y salsa teriyaki.', precio: 6500, imagen: '/productos/niu-oriental/12-tori-oriental.webp', opciones: orientalFillingOptions },
+  { id: 'niu-tonkatsu-oriental', nombre: 'Tonkatsu Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Pollo furai, camaron furai, palta y cebollin sin arroz, envuelto en pollo furai, cubierto con salsa tonkatsu, salsa unagui y papas hilo.', precio: 7900, imagen: '/productos/niu-oriental/13-tonkatsu-oriental.webp', opciones: orientalFillingOptions },
   { id: 'lata', nombre: 'Lata', categoria: 'bebidas', precio: 1000 },
   { id: 'bebida', nombre: 'Bebida', categoria: 'bebidas', precio: 2000 },
   { id: 'jugo', nombre: 'Jugo', categoria: 'bebidas', precio: 2000 },

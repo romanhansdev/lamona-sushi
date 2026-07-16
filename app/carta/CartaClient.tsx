@@ -105,7 +105,14 @@ export function CartaClient({ initialCategory }: CartaClientProps) {
                     key={producto.id}
                     producto={producto}
                     onOpen={setSelectedProduct}
-                    onQuickAdd={(item) => agregar(item)}
+                    onQuickAdd={(item) => {
+                      if (item.opciones?.length) {
+                        setSelectedProduct(item);
+                        return;
+                      }
+
+                      agregar(item);
+                    }}
                   />
                 ))}
               </div>
@@ -122,7 +129,7 @@ export function CartaClient({ initialCategory }: CartaClientProps) {
       <ProductModal
         producto={selectedProduct}
         onClose={() => setSelectedProduct(null)}
-        onAdd={(producto, cantidad) => agregar(producto, cantidad)}
+        onAdd={(producto, cantidad, selecciones) => agregar(producto, cantidad, selecciones)}
       />
     </>
   );

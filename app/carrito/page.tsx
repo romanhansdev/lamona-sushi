@@ -5,8 +5,23 @@ import Link from 'next/link';
 import { Trash2 } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import { formatPrice } from '@/lib/format';
+import { getItemTotal, getUnitExtraPrice } from '@/lib/cartPricing';
 import { QuantitySelector } from '@/components/QuantitySelector';
 import { useHasMounted } from '@/lib/useHasMounted';
+import type { ItemCarrito } from '@/types/menu';
+
+function getCartItemId(item: ItemCarrito) {
+  return item.id ?? item.producto.id;
+}
+
+function getSelectionLabels(item: ItemCarrito) {
+  return (item.producto.opciones ?? [])
+    .map((grupo) => {
+      const selectedOption = grupo.opciones.find((option) => option.id === item.selecciones?.[grupo.id]);
+      return selectedOption ? `${grupo.nombre}: ${selectedOption.nombre}` : '';
+    })
+    .filter(Boolean);
+}
 
 export default function CarritoPage() {
   const hasMounted = useHasMounted();
@@ -45,8 +60,13 @@ export default function CarritoPage() {
       ) : (
         <section className="grid gap-6 lg:grid-cols-[1fr_360px]">
           <div className="space-y-4">
-            {items.map((item) => (
-              <article key={item.producto.id} className="grid gap-4 rounded-lg border border-white/10 bg-lamona-card p-4 sm:grid-cols-[112px_1fr_auto]">
+            {items.map((item) => {
+              const itemId = getCartItemId(item);
+              const selectionLabels = getSelectionLabels(item);
+              const unitExtraPrice = getUnitExtraPrice(item.producto, item.selecciones);
+
+              return (
+              <article key={itemId} className="grid gap-4 rounded-lg border border-white/10 bg-lamona-card p-4 sm:grid-cols-[112px_1fr_auto]">
                 <Image
                   src={item.producto.imagen}
                   alt={item.producto.nombre}
@@ -59,25 +79,38 @@ export default function CarritoPage() {
                   <p className="mt-2 line-clamp-2 text-sm leading-6 text-lamona-muted">
                     {item.producto.incluye.join(', ')}
                   </p>
+                  {selectionLabels.length > 0 && (
+                    <ul className="mt-3 grid gap-1 text-xs font-semibold text-lamona-bone/80">
+                      {selectionLabels.map((label) => (
+                        <li key={label}>{label}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {unitExtraPrice > 0 && (
+                    <p className="mt-2 text-xs font-semibold text-lamona-orange">
+                      Extra por cambios: {formatPrice(unitExtraPrice)} c/u
+                    </p>
+                  )}
                   <p className="mt-3 font-black text-lamona-orange">
-                    {formatPrice(item.producto.precio * item.cantidad)}
+                    {formatPrice(getItemTotal(item))}
                   </p>
                 </div>
                 <div className="flex items-center justify-between gap-3 sm:grid sm:justify-items-end">
                   <QuantitySelector
                     value={item.cantidad}
-                    onChange={(cantidad) => actualizarCantidad(item.producto.id, cantidad)}
+                    onChange={(cantidad) => actualizarCantidad(itemId, cantidad)}
                   />
                   <button
                     className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm text-lamona-muted transition hover:bg-white/8 hover:text-lamona-bone"
-                    onClick={() => quitar(item.producto.id)}
+                    onClick={() => quitar(itemId)}
                   >
                     <Trash2 size={16} />
                     Eliminar
                   </button>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
 
           <aside className="glass-panel h-fit rounded-lg p-5">
