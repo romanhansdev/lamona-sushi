@@ -17,6 +17,47 @@ const orientalFillingOptions = [
   }
 ];
 
+export const PROTEINAS_ARMABLE = ['Pollo', 'Camaron', 'Kanikama', 'Salmon', 'Pulpo', 'Atun'];
+export const INGREDIENTES_ARMABLE = ['Palta', 'Cebollin', 'Ciboulette', 'Queso crema', 'Palmito', 'Champinon', 'Pimenton'];
+
+const toOption = (nombre: string) => ({
+  id: nombre.toLowerCase().replaceAll(' ', '-'),
+  nombre
+});
+
+const armableOptions: NonNullable<ProductoMenu['opciones']> = [
+  {
+    id: 'proteina-1',
+    nombre: 'Proteína 1',
+    requerido: true,
+    opciones: PROTEINAS_ARMABLE.map(toOption)
+  },
+  {
+    id: 'proteina-2',
+    nombre: 'Proteína 2',
+    requerido: true,
+    opciones: ['Camaron', 'Pollo', 'Kanikama', 'Salmon', 'Pulpo', 'Atun'].map(toOption)
+  },
+  {
+    id: 'ingrediente-1',
+    nombre: 'Ingrediente 1',
+    requerido: true,
+    opciones: INGREDIENTES_ARMABLE.map(toOption)
+  },
+  {
+    id: 'ingrediente-2',
+    nombre: 'Ingrediente 2',
+    requerido: true,
+    opciones: ['Cebollin', 'Palta', 'Ciboulette', 'Queso crema', 'Palmito', 'Champinon', 'Pimenton'].map(toOption)
+  },
+  {
+    id: 'ingrediente-3',
+    nombre: 'Ingrediente 3',
+    requerido: true,
+    opciones: ['Queso crema', 'Palta', 'Cebollin', 'Ciboulette', 'Palmito', 'Champinon', 'Pimenton'].map(toOption)
+  }
+];
+
 export const categorias: CategoriaMenu[] = [
   { id: 'picar-y-compartir', nombre: 'Picar y compartir', descripcion: 'Entradas calientes y bocados para abrir el pedido.' },
   { id: 'sashimis', nombre: 'Sashimis', descripcion: 'Cortes frescos de salmon, atun o pulpo.' },
@@ -107,7 +148,7 @@ const rawProductos: RawProducto[] = [
   { id: 'mystic-roll', nombre: 'Mystic Roll', categoria: 'rolls-premium', descripcion: 'Pollo apanado, queso crema, envuelto en palta, banado con salsa de mango y topping de almendras tostadas', precio: 6000 },
   { id: 'criollo-roll', nombre: 'Criollo Roll', categoria: 'rolls-premium', descripcion: 'Camaron, queso crema, palta, envuelto en arroz, banado en salsa huancaina y coronado con salsa criolla', precio: 6000 },
   { id: 'mixtura-roll', nombre: 'Mixtura Roll', categoria: 'rolls-premium', descripcion: 'Camaron apanado, queso crema, palta, coronado con lomo salteado y papas hilo', precio: 6500, destacado: true },
-  { id: 'rolls-sin-arroz-base', nombre: 'Roll sin arroz (armable)', categoria: 'rolls-sin-arroz-armable', descripcion: 'Envuelto en palta, queso crema, salmon y panko - elige 2 proteinas + 3 ingredientes', precio: 6500 },
+  { id: 'rolls-sin-arroz-base', nombre: 'Roll sin arroz (armable)', categoria: 'rolls-sin-arroz-armable', descripcion: 'Elige 2 proteinas + 3 ingredientes. Cada cambio sobre la seleccion base agrega $1.000.', precio: 6500, opciones: armableOptions },
   { id: 'niu-malibu-keto-oriental-sin-arroz', nombre: 'Malibu Keto Oriental (Sin arroz)', categoria: 'oriental-sin-arroz', descripcion: 'Camaron, salmon, atun, pepino, envuelto en palta, sin arroz', precio: 7700, imagen: '/productos/niu-oriental/01-malibu-keto-oriental-sin-arroz.webp', opciones: orientalFillingOptions, destacado: true },
   { id: 'niu-veggie-keto-oriental', nombre: 'Veggie Keto Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Palmito, champinon, palta y pepino sin arroz, envuelto en palta.', precio: 6600, imagen: '/productos/niu-oriental/02-veggie-keto-oriental.webp', opciones: orientalFillingOptions },
   { id: 'niu-ebi-keto-oriental', nombre: 'Ebi Keto Oriental', categoria: 'oriental-sin-arroz', descripcion: 'Camaron, salmon, queso crema y cebollin sin arroz, envuelto en palta, salsa acevichada, shichimi y ciboulette.', precio: 8100, imagen: '/productos/niu-oriental/03-ebi-keto-oriental.webp', opciones: orientalFillingOptions },
@@ -143,6 +184,3 @@ export const productos: ProductoMenu[] = rawProductos.map((producto) => ({
 }));
 
 export const destacados = productos.filter((producto) => producto.destacado);
-
-export const PROTEINAS_ARMABLE = ['Pollo', 'Camaron', 'Kanikama', 'Salmon', 'Pulpo', 'Atun'];
-export const INGREDIENTES_ARMABLE = ['Palta', 'Cebollin', 'Ciboulette', 'Queso crema', 'Palmito', 'Champinon', 'Pimenton'];

@@ -59,6 +59,15 @@ export function ProductModal({ producto, onClose, onAdd }: ProductModalProps) {
   const hasRequiredSelections = (producto.opciones ?? []).every((grupo) => (
     !grupo.requerido || Boolean(selecciones[grupo.id])
   ));
+  const proteinSelections = Object.entries(selecciones)
+    .filter(([groupId]) => groupId.startsWith('proteina-'))
+    .map(([, optionId]) => optionId);
+  const ingredientSelections = Object.entries(selecciones)
+    .filter(([groupId]) => groupId.startsWith('ingrediente-'))
+    .map(([, optionId]) => optionId);
+  const hasRepeatedSelections = new Set(proteinSelections).size !== proteinSelections.length
+    || new Set(ingredientSelections).size !== ingredientSelections.length;
+  const canAdd = hasRequiredSelections && !hasRepeatedSelections;
 
   return (
     <div className="fixed inset-0 z-[80] grid place-items-end bg-black/70 p-0 backdrop-blur-sm md:place-items-center md:p-6">
@@ -140,7 +149,7 @@ export function ProductModal({ producto, onClose, onAdd }: ProductModalProps) {
 
           <button
             className="w-full rounded-full bg-lamona-orange px-5 py-4 text-base font-black text-white shadow-glow transition hover:bg-lamona-orangeDark disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-lamona-muted disabled:shadow-none"
-            disabled={!hasRequiredSelections}
+            disabled={!canAdd}
             onClick={() => {
               onAdd(producto, cantidad, selecciones);
               onClose();
@@ -148,6 +157,11 @@ export function ProductModal({ producto, onClose, onAdd }: ProductModalProps) {
           >
             Agregar {formatPrice(total)}
           </button>
+          {hasRepeatedSelections && (
+            <p className="text-center text-xs font-semibold text-red-300">
+              Elige proteínas e ingredientes diferentes.
+            </p>
+          )}
           {Object.keys(selectedLabels).length > 0 && (
             <p className="text-center text-xs font-semibold text-lamona-muted">
               Seleccion: {Object.values(selectedLabels).join(', ')}
